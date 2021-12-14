@@ -1,6 +1,7 @@
 //variable is a data container/data storage, value can change - let. Const you can't change the value.
 const defaultResult = 0;
 let currentResult = defaultResult;
+let logEntry = [];
 
 function getUserInput() {
   return parseInt(userInput.value);
@@ -14,29 +15,37 @@ function createAndWriteOput(operator, resultBeforeCalc, calcNumber) {
 function add() {
   const enteredNumber = getUserInput();
   const initialResult = currentResult;
-  currentResult = currentResult + enteredNumber;
+  currentResult += enteredNumber;
   createAndWriteOput('+', initialResult, enteredNumber);
+  logEntry.push(enteredNumber);
+  console.log(logEntry);
 }
 
 function subtract() {
   const enteredNumber = getUserInput();
   const initialResult = currentResult;
-  currentResult = currentResult - enteredNumber;
+  currentResult -= enteredNumber;
   createAndWriteOput('-', initialResult, enteredNumber);
+  logEntry.push(enteredNumber);
+  console.log(logEntry);
 }
 
 function divide() {
   const enteredNumber = getUserInput();
   const initialResult = currentResult;
-  currentResult = currentResult / enteredNumber;
+  currentResult /= enteredNumber;
   createAndWriteOput('/', initialResult, enteredNumber);
+  logEntry.push(enteredNumber);
+  console.log(logEntry);
 }
 
 function multiply() {
   const enteredNumber = getUserInput();
   const initialResult = currentResult;
-  currentResult = currentResult * enteredNumber;
+  currentResult *= enteredNumber;
   createAndWriteOput('*', initialResult, enteredNumber);
+  logEntry.push(enteredNumber);
+  console.log(logEntry);
 }
 
 addBtn.addEventListener('click', add);
