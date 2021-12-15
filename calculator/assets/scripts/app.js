@@ -1,7 +1,7 @@
 //variable is a data container/data storage, value can change - let. Const you can't change the value.
 const defaultResult = 0;
 let currentResult = defaultResult;
-let logEntry = [];
+let logEntries = [];
 
 function getUserInput() {
   return parseInt(userInput.value);
@@ -12,13 +12,23 @@ function createAndWriteOput(operator, resultBeforeCalc, calcNumber) {
   outputResult(currentResult, calcDescription);
 }
 
+function writeLog(operation, enteredNumber, initialResult, currentResult) {
+  logEntry = {
+    operation: operation,
+    enteredNumber: enteredNumber,
+    initialResult: initialResult,
+    currentResult: currentResult,
+  };
+  logEntries.push(logEntry);
+  console.log(logEntries);
+}
+
 function add() {
   const enteredNumber = getUserInput();
   const initialResult = currentResult;
   currentResult += enteredNumber;
   createAndWriteOput('+', initialResult, enteredNumber);
-  logEntry.push(enteredNumber);
-  console.log(logEntry);
+  writeLog('ADD', enteredNumber, initialResult, currentResult);
 }
 
 function subtract() {
@@ -26,8 +36,7 @@ function subtract() {
   const initialResult = currentResult;
   currentResult -= enteredNumber;
   createAndWriteOput('-', initialResult, enteredNumber);
-  logEntry.push(enteredNumber);
-  console.log(logEntry);
+  writeLog('SUBTRACT', enteredNumber, initialResult, currentResult);
 }
 
 function divide() {
@@ -35,8 +44,7 @@ function divide() {
   const initialResult = currentResult;
   currentResult /= enteredNumber;
   createAndWriteOput('/', initialResult, enteredNumber);
-  logEntry.push(enteredNumber);
-  console.log(logEntry);
+  writeLog('DIVIDE', enteredNumber, initialResult, currentResult);
 }
 
 function multiply() {
@@ -44,8 +52,7 @@ function multiply() {
   const initialResult = currentResult;
   currentResult *= enteredNumber;
   createAndWriteOput('*', initialResult, enteredNumber);
-  logEntry.push(enteredNumber);
-  console.log(logEntry);
+  writeLog('MULTIPLY', enteredNumber, initialResult, currentResult);
 }
 
 addBtn.addEventListener('click', add);
