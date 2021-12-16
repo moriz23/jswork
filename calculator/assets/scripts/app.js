@@ -23,36 +23,52 @@ function writeLog(operation, enteredNumber, initialResult, currentResult) {
   console.log(logEntries);
 }
 
-function add() {
+function calculateResult(calculationType) {
   const enteredNumber = getUserInput();
   const initialResult = currentResult;
-  currentResult += enteredNumber;
-  createAndWriteOput('+', initialResult, enteredNumber);
-  writeLog('ADD', enteredNumber, initialResult, currentResult);
+  let mathOperator;
+
+  if (
+    (calculationType != 'add' &&
+      calculationType != 'subtract' &&
+      calculationType != 'divide' &&
+      calculationType != 'multiply') ||
+    enteredNumber == 0
+  ) {
+    return;
+  }
+
+  if (calculationType === 'add') {
+    mathOperator = '+';
+    currentResult += enteredNumber;
+  } else if (calculationType === 'subtract') {
+    mathOperator = '-';
+    currentResult -= enteredNumber;
+  } else if (calculationType === 'divide') {
+    mathOperator = '/';
+    currentResult /= enteredNumber;
+  } else if (calculationType === 'multiply') {
+    mathOperator = '*';
+    currentResult *= enteredNumber;
+  }
+  createAndWriteOput(mathOperator, initialResult, enteredNumber);
+  writeLog(calculationType, enteredNumber, initialResult, currentResult);
+}
+
+function add() {
+  calculateResult('add');
 }
 
 function subtract() {
-  const enteredNumber = getUserInput();
-  const initialResult = currentResult;
-  currentResult -= enteredNumber;
-  createAndWriteOput('-', initialResult, enteredNumber);
-  writeLog('SUBTRACT', enteredNumber, initialResult, currentResult);
+  calculateResult('subtract');
 }
 
 function divide() {
-  const enteredNumber = getUserInput();
-  const initialResult = currentResult;
-  currentResult /= enteredNumber;
-  createAndWriteOput('/', initialResult, enteredNumber);
-  writeLog('DIVIDE', enteredNumber, initialResult, currentResult);
+  calculateResult('divide');
 }
 
 function multiply() {
-  const enteredNumber = getUserInput();
-  const initialResult = currentResult;
-  currentResult *= enteredNumber;
-  createAndWriteOput('*', initialResult, enteredNumber);
-  writeLog('MULTIPLY', enteredNumber, initialResult, currentResult);
+  calculateResult('multiply');
 }
 
 addBtn.addEventListener('click', add);
