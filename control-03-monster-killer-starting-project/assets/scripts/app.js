@@ -9,6 +9,7 @@ let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife;
 let hasBonusLife = true;
 let battleLog = [];
+let lastLoggedEntry;
 
 if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
   chosenMaxLife = 100;
@@ -25,22 +26,46 @@ function writeBattleLog(event, value, monsterHealth, playerHealth) {
     finalMonsterHealth: monsterHealth,
     finalPlayerHealth: playerHealth,
   };
-  if (event === 'playerAttack') {
-    logEntry.target = 'Monster';
-  } else if (event === 'strongAttack') {
-    logEntry.target = 'Monster';
-  } else if (event === 'monsterAttack') {
-    logEntry.target = 'Player';
-  } else if (event === 'heal') {
-    logEntry.target = 'Player';
-  } else if (event === 'gameOver') {
-    logEntry = {
-      event: event,
-      value: value,
-      finalMonsterHealth: monsterHealth,
-      finalPlayerHealth: playerHealth,
-    };
+  switch (event) {
+    case 'playerAttack':
+      logEntry.target = 'Monster';
+      break;
+    case 'strongAttack':
+      logEntry.target = 'Monster';
+      break;
+    case 'monsterAttack':
+      logEntry.target = 'Player';
+      break;
+    case 'heal':
+      logEntry.target = 'Player';
+      break;
+    case 'gameOver':
+      logEntry = {
+        event: event,
+        value: value,
+        finalMonsterHealth: monsterHealth,
+        finalPlayerHealth: playerHealth,
+      };
+      break;
+    default:
+      logEntry = {};
   }
+  // if (event === 'playerAttack') {
+  //   logEntry.target = 'Monster';
+  // } else if (event === 'strongAttack') {
+  //   logEntry.target = 'Monster';
+  // } else if (event === 'monsterAttack') {
+  //   logEntry.target = 'Player';
+  // } else if (event === 'heal') {
+  //   logEntry.target = 'Player';
+  // } else if (event === 'gameOver') {
+  //   logEntry = {
+  //     event: event,
+  //     value: value,
+  //     finalMonsterHealth: monsterHealth,
+  //     finalPlayerHealth: playerHealth,
+  //   };
+  // }
   battleLog.push(logEntry);
 }
 
@@ -101,15 +126,15 @@ function endRound() {
 }
 
 function attackMonster(mode) {
-  let maxDamage;
-  let logAttack;
-  if (mode === 'ATTACK') {
-    maxDamage = ATTACK_VALUE;
-    logAttack = 'playerAttack';
-  } else if (mode === 'STRONG') {
-    maxDamage = STRONG_ATTACK_VALUE;
-    logAttack = 'strongAttack';
-  }
+  const maxDamage = mode === 'ATTACK' ? ATTACK_VALUE : STRONG_ATTACK_VALUE;
+  const logAttack = mode === 'ATTACK' ? 'playerAttack' : 'strongAttack';
+  // if (mode === 'ATTACK') {
+  //   maxDamage = ATTACK_VALUE;
+  //   logAttack = 'playerAttack';
+  // } else if (mode === 'STRONG') {
+  //   maxDamage = STRONG_ATTACK_VALUE;
+  //   logAttack = 'strongAttack';
+  // }
   const monsterDamage = dealMonsterDamage(maxDamage);
   currentMonsterHealth -= monsterDamage;
   writeBattleLog(
@@ -144,7 +169,33 @@ function healPlayerHandler() {
 }
 
 function printLogHandler() {
-  console.log(battleLog);
+  // for (let i = 0; i < battleLog.length; i++) {
+  //   console.log(battleLog[i]);
+  // }
+
+  // let i = 0;
+  // for (const logEntry of battleLog) {
+  //   console.log(`#${i}`);
+  //   for (const key in logEntry) {
+  //     console.log(`${key} => ${logEntry[key]}`);
+  //   }
+  //   i++;
+  // }
+
+  let i = 0;
+  for (const logEntry of battleLog) {
+    if ((!lastLoggedEntry && lastLoggedEntry !== 0) || lastLoggedEntry < i) {
+      console.log(`#${i}`);
+      for (const key in logEntry) {
+        console.log(`${key} => ${logEntry[key]}`);
+      }
+      lastLoggedEntry = i;
+      break;
+    }
+    i++;
+  }
+
+  // console.log(battleLog);
 }
 
 attackBtn.addEventListener('click', attackHandler);
