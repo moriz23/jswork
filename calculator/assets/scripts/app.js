@@ -23,55 +23,87 @@ function writeLog(operation, enteredNumber, initialResult, currentResult) {
   console.log(logEntries);
 }
 
-function calculateResult(calculationType) {
+// function calculateResult(calculationType) {
+//   const enteredNumber = getUserInput();
+//   const initialResult = currentResult;
+//   let mathOperator;
+
+//   if (
+//     (calculationType != 'add' &&
+//       calculationType != 'subtract' &&
+//       calculationType != 'divide' &&
+//       calculationType != 'multiply') ||
+//     enteredNumber == 0
+//   ) {
+//     return;
+//   }
+
+//   if (calculationType === 'add') {
+//     mathOperator = '+';
+//     currentResult += enteredNumber;
+//   } else if (calculationType === 'subtract') {
+//     mathOperator = '-';
+//     currentResult -= enteredNumber;
+//   } else if (calculationType === 'divide') {
+//     mathOperator = '/';
+//     currentResult /= enteredNumber;
+//   } else if (calculationType === 'multiply') {
+//     mathOperator = '*';
+//     currentResult *= enteredNumber;
+//   }
+//   createAndWriteOput(mathOperator, initialResult, enteredNumber);
+//   writeLog(calculationType, enteredNumber, initialResult, currentResult);
+// }
+
+function calculateResult(operation) {
   const enteredNumber = getUserInput();
   const initialResult = currentResult;
   let mathOperator;
 
   if (
-    (calculationType != 'add' &&
-      calculationType != 'subtract' &&
-      calculationType != 'divide' &&
-      calculationType != 'multiply') ||
+    (operation != 'add' &&
+      operation != 'subtract' &&
+      operation != 'divide' &&
+      operation != 'multiply') ||
     enteredNumber == 0
   ) {
     return;
   }
 
-  if (calculationType === 'add') {
+  if (operation === 'add') {
     mathOperator = '+';
     currentResult += enteredNumber;
-  } else if (calculationType === 'subtract') {
+  } else if (operation === 'subtract') {
     mathOperator = '-';
     currentResult -= enteredNumber;
-  } else if (calculationType === 'divide') {
+  } else if (operation === 'divide') {
     mathOperator = '/';
     currentResult /= enteredNumber;
-  } else if (calculationType === 'multiply') {
+  } else if (operation === 'multiply') {
     mathOperator = '*';
     currentResult *= enteredNumber;
   }
   createAndWriteOput(mathOperator, initialResult, enteredNumber);
-  writeLog(calculationType, enteredNumber, initialResult, currentResult);
+  writeLog(operation, enteredNumber, initialResult, currentResult);
 }
 
-function add() {
-  calculateResult('add');
-}
+// function add() {
+//   calculateResult('add');
+// }
 
-function subtract() {
-  calculateResult('subtract');
-}
+// function subtract() {
+//   calculateResult('subtract');
+// }
 
-function divide() {
-  calculateResult('divide');
-}
+// function divide() {
+//   calculateResult('divide');
+// }
 
-function multiply() {
-  calculateResult('multiply');
-}
+// function multiply() {
+//   calculateResult('multiply');
+// }
 
-addBtn.addEventListener('click', add);
-subtractBtn.addEventListener('click', subtract);
-divideBtn.addEventListener('click', divide);
-multiplyBtn.addEventListener('click', multiply);
+addBtn.addEventListener('click', calculateResult.bind(this, 'add'));
+subtractBtn.addEventListener('click', calculateResult.bind(this, 'subtract'));
+divideBtn.addEventListener('click', calculateResult.bind(this, 'divide'));
+multiplyBtn.addEventListener('click', calculateResult.bind(this, 'multiply'));
