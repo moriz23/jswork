@@ -34,8 +34,23 @@ const checkInput = (cb, ...texts) => {
   }
 };
 
+const checkNumbers = (...numbers) => {
+  for (const number of numbers) {
+    if (numbers.includes(23)) {
+      console.log(numbers);
+      break;
+    } else {
+      console.log('List does noe include 23');
+    }
+  }
+};
+
 const checkingInputs = () => {
   console.log('All not empty');
+};
+
+const checkingNumbers23 = () => {
+  console.log('All are numbers');
 };
 
 sayHello('Mohammed');
@@ -45,4 +60,6 @@ sayHello2('Salutations');
 const name = sayHello4('Mohammed');
 console.log(`hey what up ${name}`);
 
-const string = checkInput(checkingInputs, 'hey', 'dude', 'hey yo', 'hello');
+checkInput(checkingInputs, 'hey', 'dude', 'hey yo', 'hello');
+
+checkNumbers(checkingNumbers23, 1, 5, 8, 10, 45, 23);
